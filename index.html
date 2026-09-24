@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Museum of Captain 💜</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;font-family:Georgia,serif;color:#fff;overflow-x:hidden;background:radial-gradient(circle at 15% 15%,rgba(216,183,255,.28),transparent 28%),radial-gradient(circle at 85% 25%,rgba(245,205,238,.18),transparent 25%),radial-gradient(circle at 50% 90%,rgba(190,160,255,.2),transparent 30%),#120d1b}
+.hidden{display:none!important}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.particle{position:absolute;bottom:-20px;border-radius:50%;background:#dcbcff;box-shadow:0 0 14px #dcbcff;opacity:0;animation:floatUp linear infinite}
+.music{position:fixed;right:18px;top:18px;z-index:20;width:46px;height:46px;margin:0;padding:0;border:1px solid rgba(230,205,255,.7);border-radius:50%;background:rgba(25,15,35,.72);backdrop-filter:blur(10px);color:#fff;cursor:pointer}
+#intro,#museum{position:relative;z-index:2}
+#intro{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px}
+.intro-box{max-width:700px;animation:appear 1.4s ease}
+.small{font-size:11px;letter-spacing:4px;opacity:.62;margin-bottom:20px}
+h1{font-size:clamp(50px,12vw,95px);color:#ead7ff;text-shadow:0 0 35px rgba(220,180,255,.6);margin-bottom:18px}
+.subtitle{font-size:18px;line-height:1.8;opacity:.86}
+button{margin-top:32px;padding:13px 26px;border:1px solid #dcbcff;border-radius:30px;background:rgba(255,255,255,.07);color:#fff;font:inherit;cursor:pointer;transition:.3s}
+button:hover{background:#dcbcff;color:#24172e;transform:translateY(-3px)}
+#museum{padding:55px 20px 90px}
+.header{text-align:center;margin-bottom:50px}
+.header h2{font-size:clamp(36px,9vw,66px);color:#ead7ff}
+.header p{margin-top:14px;opacity:.68}
+.gallery{max-width:1000px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
+.exhibit{min-height:220px;padding:28px;border-radius:22px;border:1px solid rgba(230,200,255,.23);background:rgba(255,255,255,.065);backdrop-filter:blur(12px);cursor:pointer;transition:.35s}
+.exhibit:hover{transform:translateY(-8px);background:rgba(230,200,255,.12);box-shadow:0 18px 50px rgba(0,0,0,.3)}
+.number{font-size:11px;letter-spacing:3px;color:#d7b7ff}
+.exhibit h3{margin-top:25px;font-size:23px}
+.exhibit p{margin-top:15px;line-height:1.65;opacity:.7}
+.secret,.final{max-width:760px;margin:80px auto 0;text-align:center;padding:45px 25px;border-radius:25px;border:1px solid rgba(230,200,255,.22);background:rgba(255,255,255,.045);backdrop-filter:blur(10px)}
+.secret h2,.final h2{font-size:34px;color:#ead7ff;margin-bottom:20px}
+.secret p,.final p{line-height:2;opacity:.83}
+.final{margin-top:40px;border:0;background:transparent}
+.final h2{font-size:40px}
+.signature{margin-top:30px;color:#e4c7ff;font-size:21px}
+#modal{position:fixed;inset:0;background:rgba(8,4,13,.86);display:flex;align-items:center;justify-content:center;padding:25px;z-index:30}
+.modal-box{width:min(650px,100%);max-height:85vh;overflow:auto;background:#24172e;border:1px solid #dcbcff;border-radius:25px;padding:35px;text-align:center;animation:appear .35s ease}
+.modal-box h2{color:#ead7ff;margin-bottom:20px}
+.modal-box p{white-space:pre-line;line-height:1.9;opacity:.86}
+.close{margin-top:25px}
+@keyframes appear{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatUp{0%{transform:translateY(0) translateX(0) scale(.7);opacity:0}12%{opacity:.75}50%{transform:translateY(-50vh) translateX(28px) scale(1)}100%{transform:translateY(-115vh) translateX(-35px) scale(.4);opacity:0}}
+@media(max-width:600px){#museum{padding-top:35px}.gallery{grid-template-columns:1fr}.exhibit{min-height:190px}}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<audio id="secretSong" loop preload="auto"><source src="assets/secret-song.mp3" type="audio/mpeg"></audio>
+<button class="music hidden" id="musicButton" onclick="toggleMusic()">♫</button>
+
+<section id="intro"><div class="intro-box">
+<div class="small">PRIVATE ARCHIVE • ACCESS GRANTED</div>
+<h1>Captain.</h1>
+<div class="subtitle">You somehow found your way here.<br>This is a very unnecessarily elaborate website dedicated to one person.<br><br>You are that person.<br><br>Don't ask why.<br>Just enter. 👀</div>
+<button onclick="enterMuseum()">ENTER THE MUSEUM</button>
+</div></section>
+
+<section id="museum" class="hidden">
+<div class="header"><div class="small">THE GLITZ ARCHIVE</div><h2>The Museum of Captain</h2><p>A collection of things that probably didn't need to become memories... but somehow did.</p></div>
+<div class="gallery">
+<div class="exhibit" onclick="openExhibit(1)"><div class="number">EXHIBIT 01</div><h3>Captain Lore</h3><p>Things that somehow became part of the mythology.</p></div>
+<div class="exhibit" onclick="openExhibit(2)"><div class="number">EXHIBIT 02</div><h3>Only Glitzzz Knows</h3><p>The tiny Captain things that probably don't even register as important.</p></div>
+<div class="exhibit" onclick="openExhibit(3)"><div class="number">EXHIBIT 03</div><h3>The Chaos Department</h3><p>Officially investigating the complete lack of normal days.</p></div>
+<div class="exhibit" onclick="openExhibit(4)"><div class="number">EXHIBIT 04</div><h3>Things You Don't Know</h3><p>The little moments Glitzzz remembers.</p></div>
+<div class="exhibit" onclick="openExhibit(5)"><div class="number">EXHIBIT 05</div><h3>Our Random Little Universe</h3><p>Things that would make no sense to anyone else.</p></div>
+<div class="exhibit" onclick="openExhibit(6)"><div class="number">EXHIBIT 06</div><h3>CLASSIFIED</h3><p>Access level: Captain only.</p></div>
+<div class="exhibit" onclick="openExhibit(7)"><div class="number">EXHIBIT 07</div><h3>The Part I Couldn't Categorise</h3><p>Okay. Thirty seconds of seriousness.</p></div>
+</div>
+
+<div class="secret"><div class="small">ONE MORE THING</div><h2>There is a song here.</h2><p>You didn't think the museum was actually finished, did you?<br><br>Press the music button in the corner when you're ready.</p></div>
+
+<div class="final"><h2>EXHIBIT 08 — STILL HAPPENING</h2>
+<p>There are still conversations we haven't had.<br>Jokes we haven't made.<br>Random plans we haven't made.<br>Things we haven't completely messed up yet. 😂<br><br>
+So I'm leaving this exhibit unfinished.<br><br>I'll let future Captain &amp; Glitzzz handle the rest.<br><br>
+Thank you.<br>Not for being perfect. Not for always knowing what to say. Just for being you.<br><br>
+For being my Captain.<br>My bestie.<br>My partner in all the random nonsense.<br><br>
+<strong>No dramatic speech. Don't make it weird. 😭</strong></p>
+<div class="signature">THE END<br><br>...for now.<br><br><strong>CAPTAIN × GLITZZZ</strong><br><span>One universe. Absolutely no normal days.</span></div></div>
+</section>
+
+<div id="modal" class="hidden"><div class="modal-box"><h2 id="modalTitle"></h2><p id="modalText"></p><button class="close" onclick="closeModal()">Close exhibit</button></div></div>
+
+<script>
+const exhibits={
+1:{title:"Captain Lore",text:`Some people have normal stories.
+
+You have LORE.
+
+There's the kindergarten chapter that randomly disappeared for approximately ten years.
+
+Then there's the Grade 11 chapter.
+
+Then 24 April.
+
+Then somehow:
+
+one conversation → more conversations → calls → jokes → random updates → “wait listen” → complete nonsense → actual important conversations → somehow becoming a team.
+
+And somewhere in between all of that...
+
+you became Captain.
+
+And I became Glitzzz.
+
+Honestly, I don't think either of us properly planned this.
+
+Probably better that way.`},
+2:{title:"Only Glitzzz Knows",text:`There are tiny Captain things that probably don't even register as important to you.
+
+The way you say “it's okay.”
+
+The way you can be completely calm while I'm creating an entire situation in my head.
+
+The random things you remember.
+
+The random things you forget. 😭
+
+The way a conversation can start with absolutely nothing and somehow become an hour-long discussion.
+
+The little “stop saying sorry” energy.
+
+The quiet checking-in.
+
+The completely unnecessary updates.
+
+The things that would sound incredibly boring if I explained them to somebody else.
+
+But I know exactly why they belong here.
+
+Because they're you.
+
+And apparently Glitzzz has been collecting Captain lore this whole time.`},
+3:{title:"The Chaos Department",text:`CURRENT STATISTICS:
+
+Normal conversations: 4%
+
+“WAIT LISTEN” conversations: 31%
+
+Completely unnecessary conversations: 42%
+
+Things that started normally and somehow became chaos: 87%
+
+Yes.
+
+The numbers don't make sense.
+
+No.
+
+I didn't check them.
+
+This museum is not scientifically reliable.
+
+OFFICIAL FINDINGS:
+
+Captain + Glitzzz together =
+
+questionable decisions
+
+random plans
+
+inside jokes
+
+too many messages
+
+“bro listen”
+
+“wait wait wait”
+
+and somehow...
+
+a very good time.`},
+4:{title:"Things You Don't Know",text:`This one is slightly more serious.
+
+You probably don't realise how many little moments I remember.
+
+Not just the big things.
+
+Sometimes it's literally one sentence.
+
+One stupid joke.
+
+One random conversation.
+
+One time you said something without thinking twice.
+
+One moment where you were just... there.
+
+And I don't think you realise how much those small things count.
+
+Because friendships aren't only made out of huge moments.
+
+Sometimes they're made out of:
+
+“Did you reach?”
+
+“Eat something.”
+
+“It's okay.”
+
+“Stop saying sorry.”
+
+“Listen—”
+
+“Goodnight.”
+
+And then another conversation five minutes later because apparently neither of us knows how to actually end one.`},
+5:{title:"Our Random Little Universe",text:`There are probably a thousand things about us that wouldn't make sense to anyone else.
+
+And honestly?
+
+I don't think they need to.
+
+Some jokes don't need explaining.
+
+Some memories don't need photographs.
+
+Some conversations would sound completely ridiculous if someone else heard them.
+
+Some things are funny only because we were there.
+
+And I think that's one of my favourite things about us.
+
+We somehow created a little world out of completely ordinary days.
+
+No special occasion required.
+
+Just Captain.
+
+Just Glitzzz.
+
+And whatever nonsense happens that day.`},
+6:{title:"CLASSIFIED",text:`ACCESS LEVEL: CAPTAIN ONLY
+
+There are some things I could write here.
+
+But if I write them all down, you'll know everything.
+
+And where's the fun in that? 👀
+
+CLASSIFIED FACT 01:
+Captain is significantly more important than she probably realises.
+
+CLASSIFIED FACT 02:
+Glitzzz remembers WAY more than she admits.
+
+CLASSIFIED FACT 03:
+The number of “wait listen” conversations is statistically concerning.
+
+CLASSIFIED FACT 04:
+There is no known cure for Captain–Glitzzz chaos.
+
+CLASSIFIED FACT 05:
+The “no bye” rule remains in effect.
+
+CLASSIFIED FACT 06:
+This museum is absolutely not the final version.`},
+7:{title:"The Part I Couldn't Put In A Category",text:`Okay.
+
+Enough museum nonsense for approximately thirty seconds.
+
+You know how sometimes you meet someone and you don't immediately know what they're going to become in your life?
+
+That's kind of funny to think about.
+
+Because if someone had told me at the beginning that all these random little conversations would turn into this...
+
+I probably wouldn't have believed them.
+
+And I don't want to turn this into one of those giant dramatic friendship speeches.
+
+So I'll just say this:
+
+I'm really glad it was you.
+
+I'm glad our story got all the weird little chapters.
+
+I'm glad there are memories that only make sense to us.
+
+I'm glad I got to know the person behind “Captain.”
+
+And I'm really glad I get to be Glitzzz in this particular story.
+
+That's it.
+
+No dramatic speech.
+
+Don't make it weird. 😭`}
+};
+function enterMuseum(){document.getElementById("intro").style.display="none";document.getElementById("museum").classList.remove("hidden");document.getElementById("musicButton").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});const s=document.getElementById("secretSong");s.volume=.35;s.play().catch(()=>{});}
+function toggleMusic(){const s=document.getElementById("secretSong"),b=document.getElementById("musicButton");if(s.paused){s.play();b.textContent="♫"}else{s.pause();b.textContent="🔇"}}
+function openExhibit(n){document.getElementById("modalTitle").textContent=exhibits[n].title;document.getElementById("modalText").textContent=exhibits[n].text;document.getElementById("modal").classList.remove("hidden")}
+function closeModal(){document.getElementById("modal").classList.add("hidden")}
+for(let i=0;i<38;i++){const p=document.createElement("div");p.className="particle";p.style.left=Math.random()*100+"%";const s=3+Math.random()*6;p.style.width=s+"px";p.style.height=s+"px";p.style.animationDuration=(7+Math.random()*9)+"s";p.style.animationDelay=Math.random()*10+"s";document.getElementById("particles").appendChild(p)}
+</script>
+</body>
+</html>
